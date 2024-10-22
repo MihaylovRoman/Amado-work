@@ -35,8 +35,8 @@ const Input: React.FC<IPropsInput> = ({name, value, label, onChange, isRequired}
                 type="text"
                 value={value}
                 onChange={onChange}
-                placeholder={`${label} ${isRequired && '*'}`}
-                isRequired={isRequired}
+                placeholder={`${label}${isRequired ? '*' : ''}`}
+                required={isRequired}
                 className={`input-default ${value && 'input-ok'} ${isError.error && isRequired && 'input-error'}`}
             />
             <p className={`input-default_error-tag ${isError.error && isRequired ? 'label-active' : ''}`}>

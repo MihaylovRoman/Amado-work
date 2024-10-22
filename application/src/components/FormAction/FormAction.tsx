@@ -3,6 +3,8 @@ import Button from "../Button/Button.tsx";
 import Input from "../Input/Input.tsx";
 import './style.css'
 import {IProductData, IProductForm} from "../../types/types.ts";
+import InputFile from "../InputFile/InputFile.tsx";
+import TextArea from "../TextArea/TextArea.tsx";
 
 
 const FormAction: React.FC<IProductForm> = ({existingProduct, onCancelEdit}) => {
@@ -16,7 +18,7 @@ const FormAction: React.FC<IProductForm> = ({existingProduct, onCancelEdit}) => 
         imagePath: existingProduct?.imagePath,
     })
 
-    const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 
         const {name} = e.target;
         if (e.target.files) {
@@ -54,6 +56,23 @@ const FormAction: React.FC<IProductForm> = ({existingProduct, onCancelEdit}) => 
                        value={product.price}
                        onChange={(e) => handleChangeInput(e)}
                 />
+
+                <InputFile name={'image'}
+                       isRequired={false}
+                       label={'Фото'}
+                       value={product.image}
+                       onChange={(e) => handleChangeInput(e)}
+                />
+
+                <TextArea
+                    name={'description'}
+                    isRequired={false}
+                    label={'Описание'}
+                    value={product.description}
+                    onChange={(e) => handleChangeInput(e)}
+                />
+
+
 
                 <Button
                     type={'another'}

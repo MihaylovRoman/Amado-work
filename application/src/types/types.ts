@@ -25,7 +25,7 @@ export interface IPropsInput {
     name: string
     label: string
     value: string | File | undefined;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     isRequired: boolean;
 }
 
