@@ -3,6 +3,7 @@ import {IPropsInput} from "../../types/types.ts";
 import IMAGE_ADD_FILE from '../../assets/image/ImageAddFile.png'
 import './style.css'
 
+
 const InputFile: React.FC<IPropsInput> = ({name, label, value, onChange, isRequired}) => {
 
     const [filename, setFilename] = useState<string>('');
@@ -37,8 +38,8 @@ const InputFile: React.FC<IPropsInput> = ({name, label, value, onChange, isRequi
     return (
         <div>
             <p className={`input-default_label ${value && 'label-active'}`}>{label}{isRequired && '*'}</p>
-            <div className="file-input-container">
-                <label className="custom-file-input">
+            <div className={`file-input-container ${value ? 'input-ok' : ''} ${isError.error && isRequired ? 'input-error' : ''}`}>
+                <label className='custom-file-input'>
                     <input
                         name={name}
                         type="file"

@@ -24,7 +24,7 @@ export interface IProductState {
 export interface IPropsInput {
     name: string
     label: string
-    value: string | File | undefined;
+    value: string | undefined;
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     isRequired: boolean;
 }

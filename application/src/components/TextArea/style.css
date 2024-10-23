@@ -1,5 +1,9 @@
 .textarea-default{
     resize: none;
-    height: 20%;
+    height: 160px;
     padding-top: 10px;
+}
+
+.textarea-default:focus{
+    outline:none;
 }

@@ -1,3 +1,9 @@
+.form-wrapper{
+    position: sticky;
+    box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    width: 450px;
+}
+
 .form-detail{
     margin: 25px;
 }

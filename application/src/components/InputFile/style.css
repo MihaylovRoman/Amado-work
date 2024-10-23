@@ -9,6 +9,11 @@
     padding: 10px;
 }
 
+.file-input-container.input-ok{
+    border: 1px solid #406FE9;
+    box-shadow: 2px 4px 4px 0px #406FE940;
+}
+
 .custom-file-input {
     display: flex;
     align-items: center;

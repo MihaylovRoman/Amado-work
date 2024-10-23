@@ -36,9 +36,10 @@ const FormAction: React.FC<IProductForm> = ({existingProduct, onCancelEdit}) => 
 
 
     return (
-        <div className=''>
+        <div className='form-wrapper'>
 
             <form className='form-detail'>
+
                 <h1 className='form-detail_tag'>{existingProduct ? 'Редактирование товара' : 'Добавление товара'}</h1>
                 <h2 className='form-detail_obligation'>Заполните все обязательные поля с *</h2>
 
@@ -77,7 +78,7 @@ const FormAction: React.FC<IProductForm> = ({existingProduct, onCancelEdit}) => 
                 <Button
                     type={'another'}
                     isDisabled={!(product.name && product.price)}
-                    label={'Добавить товар'}
+                    label={existingProduct ? 'Редактировать товар' : 'Добавить товар'}
                 />
 
                 {

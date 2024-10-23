@@ -1,5 +1,6 @@
 
 import FormAction from "./components/FormAction/FormAction.tsx";
+import MainPage from "./pages/MainPage/MainPage.tsx";
 
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
 
     return (
         <div>
-            <FormAction/>
+            <MainPage/>
         </div>
     )
 }
