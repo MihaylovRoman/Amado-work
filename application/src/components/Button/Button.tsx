@@ -6,7 +6,7 @@ import './style.css'
 const Button:React.FC<IPropsButton> = ({isDisabled, label, type, onClick}) => {
     return (
         <div>
-            <button disabled={isDisabled} className={`button-default button-${type} ${isDisabled ? 'button-disabled' : ''}`}>{label}</button>
+            <button onClick={onClick} disabled={isDisabled} className={`button-default button-${type} ${isDisabled ? 'button-disabled' : ''}`}>{label}</button>
         </div>
     );
 };

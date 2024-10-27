@@ -2,29 +2,19 @@ import React, {useEffect, useState} from "react";
 import {IPropsInput} from "../../types/types.ts";
 import './style.css'
 
-const Input: React.FC<IPropsInput> = ({name, value, label, onChange, isRequired}) => {
+const Input: React.FC<IPropsInput & { isResetting: boolean }> = ({name, value, label, onChange, isRequired, isResetting}) => {
 
-    const [isError, setIsError] = useState({
-        count: 0,
-        error: false
-    })
+    const [isError, setIsError] = useState(false)
 
     useEffect(() => {
-        if (isError.count != 0) {
-            value ? setIsError({
-                count: 1,
-                error: false
-            }) : setIsError({
-                count: 1,
-                error: true
-            })
+        if (isResetting) {
+            setIsError(false);
+        } else if (isRequired && value === "") {
+            setIsError(true);
         } else {
-            setIsError({
-                count: 1,
-                error: false
-            })
+            setIsError(false);
         }
-    }, [value])
+    }, [value, isRequired, isResetting]);
 
 
     return (
@@ -37,9 +27,9 @@ const Input: React.FC<IPropsInput> = ({name, value, label, onChange, isRequired}
                 onChange={onChange}
                 placeholder={`${label}${isRequired ? '*' : ''}`}
                 required={isRequired}
-                className={`input-default ${value && 'input-ok'} ${isError.error && isRequired && 'input-error'}`}
+                className={`input-default ${value && 'input-ok'} ${isError && isRequired && 'input-error'}`}
             />
-            <p className={`input-default_error-tag ${isError.error && isRequired ? 'label-active' : ''}`}>
+            <p className={`input-default_error-tag ${isError && isRequired ? 'label-active' : ''}`}>
                 Обязательно для заполнения
             </p>
         </div>

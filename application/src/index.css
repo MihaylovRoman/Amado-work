@@ -92,3 +92,7 @@ label {
 legend {
   display: block;
 }
+
+.controller-page{
+  margin-left: 450px;
+}

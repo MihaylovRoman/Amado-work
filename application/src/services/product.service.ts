@@ -18,7 +18,7 @@ export const ProductService = {
         if(data) return data;
     },
 
-    async deleteProduct(id: number) {
+    async deleteProduct(id: string) {
         const {data} = await instance.delete(`products/${id}`);
         if(data) return data;
     }

@@ -26,7 +26,7 @@ function changeProducts(products) {
 }
 
 function getJsonProducts() {
-  return JSON.parse(fs.readFileSync(__dirname + '/products.json', { encoding: "utf-8" })).products
+  return JSON.parse(fs.readFileSync(__dirname + '/products.json', { encoding: "utf-8" })).data
 }
 
 class Controller {
@@ -52,7 +52,8 @@ class Controller {
 
   async getProducts(req, res) {
     const products = fs.readFileSync(__dirname + '/products.json', { encoding: "utf-8" })
-    res.json(products)
+    const productsJson = JSON.parse(products);
+    res.json(productsJson)
   }
 
   async updateProduct(req, res) {
@@ -80,10 +81,10 @@ class Controller {
   async deleteProduct(req, res) {
     const id = req.params.id
     let products = getJsonProducts()
-    const currentProduct = products.find(product => product.id === +id)
+    const currentProduct = products.find(product => product.id === id)
     if (currentProduct) {
       deleteFile(currentProduct.image)
-      products = products.filter(product => product.id !== +id)
+      products = products.filter(product => product.id !== id)
       changeProducts(products)
     }
     res.json(true)

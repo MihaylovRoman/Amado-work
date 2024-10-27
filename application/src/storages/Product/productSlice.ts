@@ -38,7 +38,7 @@ export const createProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
     'products/deleteProduct',
-    async (id: number, {rejectWithValue}) => {
+    async (id: string, {rejectWithValue}) => {
         try {
             const response = await ProductService.deleteProduct(id);
             return response.data;
@@ -78,7 +78,7 @@ const productSlice = createSlice({
                 state.isLoading = false
                 state.isError = true
             })
-            .addCase(deleteProduct.fulfilled, (state, action: PayloadAction<number>) => {
+            .addCase(deleteProduct.fulfilled, (state, action: PayloadAction<string>) => {
                 state.isLoading = false
                 state.products = state.products.filter((product) => product.id !== action.payload);
             })

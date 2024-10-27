@@ -3,12 +3,12 @@ import React from "react";
 //
 
 export interface IProductData {
-    id: number | undefined;
-    name: string | undefined;
+    id: string | undefined;
+    title: string | undefined;
     price: string | undefined;
     description: string | undefined;
-    imagePath?: string | undefined;
-    image?: File | null;
+    imageFile?: File | null;
+    image?: string | undefined;
 }
 
 export interface IProductState {
@@ -36,9 +36,25 @@ export interface IPropsButton {
     onClick?: () => void
 }
 
-export interface IProductForm {
+export interface IPropsProductForm {
     existingProduct?: IProductData;
     onCancelEdit?: () => void;
+}
+
+export interface IPropsProduct {
+    product: IProductData;
+}
+
+export interface IPropsProduct {
+    product: IProductData;
+    onManageClick: (id: string | undefined, type: string | undefined) => void;
+
+}
+
+export interface IPropsManageButton{
+    type: 'edit' | 'delete'
+    onClick: (id: string | undefined, type: string | undefined) => void
+    productId: string | undefined
 }
 
 
