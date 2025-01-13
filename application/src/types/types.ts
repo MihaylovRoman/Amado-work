@@ -3,7 +3,7 @@ import React from "react";
 //
 
 export interface IProductData {
-    id: string | undefined;
+    id: number | undefined;
     title: string | undefined;
     price: string | undefined;
     description: string | undefined;
@@ -33,12 +33,12 @@ export interface IPropsButton {
     label: string
     isDisabled: boolean
     type: 'cancel' | 'another'
-    onClick?: () => void
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export interface IPropsProductForm {
     existingProduct?: IProductData;
-    onCancelEdit?: () => void;
+    onCancelEdit: () => void;
 }
 
 export interface IPropsProduct {
@@ -47,14 +47,14 @@ export interface IPropsProduct {
 
 export interface IPropsProduct {
     product: IProductData;
-    onManageClick: (id: string | undefined, type: string | undefined) => void;
+    onManageClick: (id: number | undefined, type: string | undefined) => void;
 
 }
 
 export interface IPropsManageButton{
     type: 'edit' | 'delete'
-    onClick: (id: string | undefined, type: string | undefined) => void
-    productId: string | undefined
+    onClick: (id: number | undefined, type: string | undefined) => void
+    productId: number | undefined
 }
 
 

@@ -13,23 +13,26 @@ const MainPage = () => {
     const {products, removeProduct, isLoading} = useProducts()
     const [existingProduct, setExistingProduct] = useState<IProductData | undefined>(undefined)
 
-    const getProduct: IProductData = (id: string) => {
+    const getProduct = (id: number): IProductData => {
         const product: IProductData | undefined = products.find(product => product.id == id)
+
+        if (!product) {
+            throw new Error(`Продукт не найден`);
+        }
 
         return product
     }
 
-    const handleClickManageButton = (id: string, type: string) => {
-        type == 'edit' ? setExistingProduct(getProduct(id)) : removeProduct(id)
+    // Клик для Удаления или Изменения товара
+    const handleClickManageButton = (id: number | undefined, type: string | undefined) => {
+        if(id){
+            type == 'edit' ? setExistingProduct(getProduct(id)) : removeProduct(id)
+        }
+        
     }
 
     const handleClickCancel = () => {
         setExistingProduct(undefined)
-    }
-
-
-    if (isLoading) {
-        return <Loader/>
     }
 
 
@@ -40,20 +43,31 @@ const MainPage = () => {
 
             <FormAction existingProduct={existingProduct} onCancelEdit={handleClickCancel}/>
             <div className='controller-page'></div>
+
             {
-                products ?
-                    <div className="products">
+                isLoading ? <Loader /> :
+                    <>
                         {
-                            products.map(product => <Product key={product.id}
-                                                             product={product}
-                                                             onManageClick={handleClickManageButton}
-                                                             isEditing={existingProduct?.id === product.id}
-                            />)
+                            products && products.length > 0 ? (
+                                <div className="products">
+                                    {products.map((product) => (
+                                        product?.id ? (
+                                            <Product
+                                                key={product.id}
+                                                product={product}
+                                                onManageClick={handleClickManageButton}
+                                                isEditing={existingProduct?.id === product.id}
+                                            />
+                                        ) : null
+                                    ))}
+                                </div>
+                            ) : (
+                                <NoProducts />
+                            )
                         }
-                    </div>
-                    :
-                    <NoProducts/>
+                    </>
             }
+
 
         </div>
     );

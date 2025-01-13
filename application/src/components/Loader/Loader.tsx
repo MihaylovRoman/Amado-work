@@ -2,7 +2,7 @@ import './style.css'
 
 const Loader = () => {
     return (
-        <div>
+        <div className='loader-center'>
             <div className="spinner"></div>
         </div>
     );

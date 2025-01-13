@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from "../Button/Button.tsx";
 import Input from "../Input/Input.tsx";
 import './style.css'
-import {IProductData, IPropsProductForm} from "../../types/types.ts";
+import { IProductData, IPropsProductForm } from "../../types/types.ts";
 import InputFile from "../InputFile/InputFile.tsx";
 import TextArea from "../TextArea/TextArea.tsx";
+import { useProducts } from "../../hooks/useProducts.ts";
 
 
-const FormAction: React.FC<IPropsProductForm> = ({existingProduct, onCancelEdit}) => {
+const FormAction: React.FC<IPropsProductForm> = ({ existingProduct, onCancelEdit }) => {
 
+    const { editProduct, addProduct } = useProducts()
 
     const [isResetting, setIsResetting] = useState(false);
     const [product, setProduct] = useState<IProductData>({
@@ -23,11 +25,13 @@ const FormAction: React.FC<IPropsProductForm> = ({existingProduct, onCancelEdit}
 
     const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 
-        const {name} = e.target;
-        if (e.target.files) {
+        const { name, type } = e.target;
+        if (type == 'file' && (e.target as HTMLInputElement).files) {
+            const file = (e.target as HTMLInputElement).files[0];
             setProduct({
                 ...product,
-                imageFile: e.target.files[0],
+                image: file.name,
+                imageFile: file,
             })
         } else {
             setProduct({
@@ -37,7 +41,19 @@ const FormAction: React.FC<IPropsProductForm> = ({existingProduct, onCancelEdit}
         }
     }
 
-    const handleCancelEdit = () => {
+    const handleSubmit = (e: React.FormEvent) => {
+        
+        e.preventDefault();
+        if (existingProduct) {
+            editProduct(product);
+        } else {
+            addProduct(product);
+        }
+        resetter()
+        onCancelEdit()
+
+    }
+    const resetter = () => {
         setProduct({
             id: undefined,
             title: "",
@@ -47,7 +63,12 @@ const FormAction: React.FC<IPropsProductForm> = ({existingProduct, onCancelEdit}
             imageFile: null,
         });
         setIsResetting(true);
+        
+    }
+    const handleCancelEdit = () => {
+        resetter()
         onCancelEdit();
+        
     };
 
     useEffect(() => {
@@ -74,26 +95,27 @@ const FormAction: React.FC<IPropsProductForm> = ({existingProduct, onCancelEdit}
 
 
                 <Input name={'title'}
-                       isRequired={true}
-                       label={'Название'}
-                       isResetting={isResetting}
-                       value={product.title}
-                       onChange={(e) => handleChangeInput(e)}
+                    isRequired={true}
+                    label={'Название'}
+                    isResetting={isResetting}
+                    value={product.title}
+                    onChange={(e) => handleChangeInput(e)}
                 />
 
                 <Input name={'price'}
-                       isRequired={true}
-                       isResetting={isResetting}
-                       label={'Цена'}
-                       value={product.price}
-                       onChange={(e) => handleChangeInput(e)}
+                    isRequired={true}
+                    isResetting={isResetting}
+                    label={'Цена'}
+                    value={product.price}
+                    onChange={(e) => handleChangeInput(e)}
                 />
 
                 <InputFile name={'image'}
-                           isRequired={false}
-                           label={'Фото'}
-                           value={product.image}
-                           onChange={(e) => handleChangeInput(e)}
+                    isRequired={false}
+                    isResetting={isResetting}
+                    label={'Фото'}
+                    value={product.image}
+                    onChange={(e) => handleChangeInput(e)}
                 />
 
                 <TextArea
@@ -106,6 +128,7 @@ const FormAction: React.FC<IPropsProductForm> = ({existingProduct, onCancelEdit}
 
 
                 <Button
+                    onClick={(e: any) => handleSubmit(e)}
                     type={'another'}
                     isDisabled={!(product.title && product.price)}
                     label={existingProduct ? 'Редактировать товар' : 'Добавить товар'}

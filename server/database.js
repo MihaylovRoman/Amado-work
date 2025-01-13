@@ -3,6 +3,7 @@ const routesRouter = require('./database/router')
 const PORT = 3030
 const api = express()
 const fileUpload = require('express-fileupload');
+const path = require('path')
 
 api.use(fileUpload({
   createParentPath: true
@@ -16,6 +17,7 @@ api.use((req, res, next) => {
 })
 
 api.use(express.json())
+api.use('/images', express.static(path.join(__dirname, 'images')))
 api.use('/api', routesRouter)
 
 api.listen(PORT, ()=> console.log(`server started on port ${PORT}`))

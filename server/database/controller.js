@@ -5,7 +5,7 @@ const pathFile = __dirname + '/..'
 const directoryName = '/images/'
 
 function deleteFile(name) {
-  if(!fs.existsSync(pathFile + name)) return
+  if (!fs.existsSync(pathFile + name)) return
   fs.unlink(pathFile + name, (err) => {
     if (err) {
       console.log(err)
@@ -26,7 +26,7 @@ function changeProducts(products) {
 }
 
 function getJsonProducts() {
-  return JSON.parse(fs.readFileSync(__dirname + '/products.json', { encoding: "utf-8" })).data
+  return JSON.parse(fs.readFileSync(__dirname + '/products.json', { encoding: "utf-8" })).products
 }
 
 class Controller {
@@ -62,11 +62,17 @@ class Controller {
     let currentProduct
     products = products.map(product => {
       if (product.id === +id) {
-        if (product.image) {
-          deleteFile(product.image)
+
+        if (req.files) {
+          if (product.image) {
+            deleteFile(product.image)
+          }
           createFile(product.id, req.files.image)
           product.image = directoryName + product.id + req.files.image.name
         }
+
+        
+
         product.title = title
         product.price = price
         product.description = description
@@ -80,11 +86,14 @@ class Controller {
 
   async deleteProduct(req, res) {
     const id = req.params.id
+
     let products = getJsonProducts()
-    const currentProduct = products.find(product => product.id === id)
+    const currentProduct = products.find(product => product.id === +id)
     if (currentProduct) {
-      deleteFile(currentProduct.image)
-      products = products.filter(product => product.id !== id)
+      if (currentProduct.image) {
+        deleteFile(currentProduct.image)
+      }
+      products = products.filter(product => product.id !== +id)
       changeProducts(products)
     }
     res.json(true)

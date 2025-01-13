@@ -10,8 +10,9 @@ export const useProducts = () => {
 
     useEffect(() => {
 
-        dispatch(getAllProducts());
-        console.log("Products fetched: ", products);
+        if (!products || products.length === 0) {
+            dispatch(getAllProducts());
+        }
 
     }, [dispatch])
 
@@ -23,7 +24,7 @@ export const useProducts = () => {
         dispatch(changeProduct(productData))
     }
 
-    const removeProduct = (id: string) => {
+    const removeProduct = (id: number) => {
         dispatch(deleteProduct(id))
     }
 

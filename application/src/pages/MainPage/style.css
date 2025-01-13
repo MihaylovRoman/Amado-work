@@ -3,10 +3,9 @@
     height: 100vh;
 }
 .products{
-    width: 50%;
-    margin-top: 50px;
+    
+    margin-top: 20px;
     margin-left: 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
 }

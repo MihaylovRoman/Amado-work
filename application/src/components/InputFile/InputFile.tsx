@@ -4,7 +4,7 @@ import IMAGE_ADD_FILE from '../../assets/image/ImageAddFile.png'
 import './style.css'
 
 
-const InputFile: React.FC<IPropsInput> = ({name, label, value, onChange, isRequired}) => {
+const InputFile: React.FC<IPropsInput & { isResetting: boolean }> = ({name, label, value, onChange, isRequired, isResetting}) => {
 
     const [filename, setFilename] = useState<string>('');
     const [isError, setIsError] = useState({
@@ -13,6 +13,7 @@ const InputFile: React.FC<IPropsInput> = ({name, label, value, onChange, isRequi
     })
 
     useEffect(() => {
+        isResetting && value === "" ? setFilename('') : ''
         if (isError.count != 0) {
             value ? setIsError({
                 count: 1,
@@ -37,10 +38,10 @@ const InputFile: React.FC<IPropsInput> = ({name, label, value, onChange, isRequi
 
     return (
         <div>
-            <p className={`input-default_label ${value && 'label-active'}`}>{label}{isRequired && '*'}</p>
-            <div className={`file-input-container ${value ? 'input-ok' : ''} ${isError.error && isRequired ? 'input-error' : ''}`}>
+            <p className={`input-default_label ${value ? 'label-active' : ''}`}>{label}{isRequired && '*'}</p>
+            <div className={`file-input-container ${value && 'input-ok'} ${isError.error && isRequired ? 'input-error' : ''}`}>
                 <label className='custom-file-input'>
-                    <input
+                    <input id='fileInputId'
                         name={name}
                         type="file"
                         onChange={(e) => handleFileChange(e)}
