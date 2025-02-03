@@ -4,7 +4,7 @@ import IMAGE_ADD_FILE from '../../assets/image/ImageAddFile.png'
 import './style.css'
 
 
-const InputFile: React.FC<IPropsInput & { isResetting: boolean }> = ({name, label, value, onChange, isRequired, isResetting}) => {
+const InputFile: React.FC<IPropsInput & { isResetting: boolean }> = ({name, label, value, onChange, isRequired, isResetting, type}) => {
 
     const [filename, setFilename] = useState<string>('');
     const [isError, setIsError] = useState({

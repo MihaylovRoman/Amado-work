@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {IPropsInput} from "../../types/types.ts";
 import './style.css'
 
-const Input: React.FC<IPropsInput & { isResetting: boolean }> = ({name, value, label, onChange, isRequired, isResetting}) => {
+const Input: React.FC<IPropsInput & { isResetting: boolean }> = ({name, value, label, onChange, isRequired, isResetting, type}) => {
 
     const [isError, setIsError] = useState(false)
 
@@ -22,7 +22,7 @@ const Input: React.FC<IPropsInput & { isResetting: boolean }> = ({name, value, l
             <p className={`input-default_label ${value && 'label-active'}`}>{label}{isRequired && '*'}</p>
             <input
                 name={name}
-                type="text"
+                type={type}
                 value={value}
                 onChange={onChange}
                 placeholder={`${label}${isRequired ? '*' : ''}`}

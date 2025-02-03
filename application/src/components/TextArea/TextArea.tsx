@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {IPropsInput} from "../../types/types.ts";
 import './style.css'
-const TextArea:React.FC<IPropsInput> = ({isRequired, value, name, label, onChange}) => {
+const TextArea:React.FC<IPropsInput> = ({isRequired, value, name, label, onChange, type}) => {
 
     const [isError, setIsError] = useState({
         count: 0,

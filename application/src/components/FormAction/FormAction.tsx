@@ -95,6 +95,7 @@ const FormAction: React.FC<IPropsProductForm> = ({ existingProduct, onCancelEdit
 
 
                 <Input name={'title'}
+                    type='text'
                     isRequired={true}
                     label={'Название'}
                     isResetting={isResetting}
@@ -103,6 +104,7 @@ const FormAction: React.FC<IPropsProductForm> = ({ existingProduct, onCancelEdit
                 />
 
                 <Input name={'price'}
+                    type='number'
                     isRequired={true}
                     isResetting={isResetting}
                     label={'Цена'}
@@ -111,6 +113,7 @@ const FormAction: React.FC<IPropsProductForm> = ({ existingProduct, onCancelEdit
                 />
 
                 <InputFile name={'image'}
+                    type='number'
                     isRequired={false}
                     isResetting={isResetting}
                     label={'Фото'}
@@ -120,6 +123,7 @@ const FormAction: React.FC<IPropsProductForm> = ({ existingProduct, onCancelEdit
 
                 <TextArea
                     name={'description'}
+                    type='text'
                     isRequired={false}
                     label={'Описание'}
                     value={product.description}
